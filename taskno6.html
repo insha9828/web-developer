@@ -1,0 +1,92 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    p{
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+    }
+    #the{
+        text-align: center;
+    }
+    button{
+        text-align: center;
+        background-color: black;
+        color: antiquewhite;
+    }
+    
+     .uff{
+        border: 2px solid black;
+        width: 250px;
+     }
+
+</style>
+<body>
+    <div class="uff">
+       <p><img src="./download.jpg" width="50px" height="50px"></p>
+       <h1>TWITTER</h1>
+       <P id="the">Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Voluptas nam nesciunt exercitationem maxime <br>doloremque delectus beatae quae, dolorum quibusdam<br> cupiditate officiis et eius saepe fugit ullam labore sapiente minus alias.</P>
+       <p><button>
+        READ out
+       </button></p>
+    </div>
+    
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Capitalize the first letter</h2>
+    <p id="demo1"></p>
+    <h2>Remove a character from string in JS</h2>
+    <p id="demo2"></p>
+     <h2>Iterate over string characters in JS</h2>
+    <p id="demo3"></p>
+    <h2>Get last four character</h2>
+    <p id="demo4"></p>
+    <h2>Count words in string using JS</h2>
+    <p id="demo5"></p>
+    
+
+
+    <script>
+        let input = "how are you"
+        var words = input.split(" ");
+        for (var i = 0; i < words.length; i++) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1)
+        }
+        let join = words.join(" ");
+        document.getElementById("demo1").innerHTML = join;
+        let text1 = "HelloWorld"
+        let result1 = text1.slice(1,5);
+        document.getElementById("demo2").innerHTML = result1;
+        let language = "code";
+       let text3 = "";
+       for (let x of language) {
+       text3 += x + "<br>";
+       }
+       document.getElementById("demo3").innerHTML = text3;
+       let text5 = "developer";
+       let part = text5.slice(5,9);
+       document.getElementById("demo4").innerHTML = part; 
+       let text7 = "javascript is fun to learn";
+       let words = text7.trim().split(" ");
+       let count = words.length;
+       document.getElementById("demo5").innerHTML = count; 
+
+
+        
+    </script>
+</body>
+</html>
