@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.card-container {
+      display: flex;
+      gap: 50px;
+      margin-left: 400px;
+    }
+#hello{
+    text-align: center;
+}
+    .card {
+      border: 1px solid black;
+      padding: 20px;
+      width: 200px;
+      border-radius: 5px;
+
+    }
+  </style>
+</head>
+<body>
+
+<h2 id="hello">Product List</h2>
+
+<div class="card-container"></div>
+
+<script>
+  // Product data
+  const products = [
+    { id:1,name: "Product no 01",description:" featuresHigh-quality product with modern", price: 29.99,currency:"USD",instock:"true",category:"Electronics",Tags:["gaget","tech","new"],createdAt:"2025-05-16T0:00:00Z",updatedAt:"2025-05-16T10:00:00Z" },
+    { id:2,name: "Product no  02",description:" Durable and affordable items for everyday use", price: 15.50,currency:"USD",instock:"false",category:"Home & Kitchen",Tags:["Kitchen","daily-use"],createdAt:"2025--16T10:00:00Z",updatedAt:"2025-05-16T10:00:00Z"}
+  ];
+
+  // Get the card container
+  const box = document.getElementsByClassName("card-container")[0];
+
+  // Create product cards using map
+  box.innerHTML = products.map(p => {
+    return `
+      <div class="card">
+        <p>Id: ${p.id}</p>
+         <p>Name: ${p.name}</p> 
+        <p>Description: ${p.description}</p>
+        <p>Price: ${p.price}</p>
+        <p>Currency: ${p.currency}</p>
+        <p>Instock: ${p.instock}</p>
+        <p>Category: ${p.category}</p>
+        <p>Tags: ${p.Tags}</p>
+        <p>CreatedAt: ${p.createdAt}</p>
+        <p>UpdatedAt: ${p.updatedAt}</p>
+        
+      </div>
+    `;
+  }).join('');
+</script>
+
+</body>
+</html>
