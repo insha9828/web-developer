@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h2>Fish Weight Result:</h2>
+    <div id="result"></div> -->
+   <script>
+    function checkFishWeight(weight,minWeight,callback){
+    setTimeout(function(){
+        if (weight>=minWeight){
+            callback("Pass");
+        }
+        else{
+            callback("Fail");
+        }
+    },2000);
+    }
+    function scoringCallback(result){
+    console.log("Result of check:",result);
+    // document.getElementById("result").innerHTML ="Result of check:"+result;
+    }
+    checkFishWeight(4.5,3.0,scoringCallback);
+   </script> 
+</body>
+</html>
