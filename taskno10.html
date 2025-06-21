@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <h3>Student Manager</h3>
+  <input id="n" placeholder="Name">
+  <input id="m" placeholder="Marks">
+  <button onclick="add()">Add</button>
+
+  <ul id="list"></ul>
+  <p id="avg">Average: 0</p>
+
+  <script>
+    let data = [];
+
+    function add() {
+      let name = n.value;
+      let marks = +m.value;
+      if (!name || isNaN(marks)) return;
+      data.push({name, marks});
+      show();
+    }
+    function show(){
+      list.innerHTML = "";
+      let total = 0;
+      data.forEach((s, i) => {
+        total += s.marks;
+        list.innerHTML += `<li style="color:${s.marks<40?'red':'black'}">
+          ${s.name}: ${s.marks} <button onclick="del(${i})">X</button></li>`;
+      });
+      avg.innerText = "Average: " + (total / data.length).toFixed(1);
+    }
+
+    function del(i) {
+      data.splice(i, 1);
+      show();
+    }
+  </script>
+
+</body>
+</html>
