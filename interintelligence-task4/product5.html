@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     #prodetails .single-pro-image{
+        width: 35%;
+        margin-right: 60px;
+     }
+     .small-img-group{
+        display: flex;
+        justify-content: space-around;
+     }
+     .small-img-col{
+        flex-basis: 24%;
+        cursor: pointer;
+     }
+     #prodetails{
+        display: flex;
+
+     }
+     #prodetails .single-pro-details input{
+        width: 50px;
+        height: 15px;
+        
+     }
+     button{
+        color: white;
+        background-color: pink;
+        border: none;
+        padding: 12px;
+        width: 100px;
+     }
+     /* ----------- Responsive Styles ----------- */
+    @media (max-width: 768px) {
+      #prodetails {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      }
+
+      #prodetails .single-pro-image {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      #prodetails .single-pro-details {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .small-img-group {
+        justify-content: center;
+      }
+
+      .small-img-col img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      button {
+        width: 90%;
+      }
+
+      select,
+      input {
+        width: 90%;
+        max-width: 200px;
+        margin: 10px 0;
+      }
+
+      .small-img-col {
+        flex-basis: 45%;
+      }
+    }
+    @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: fadeIn 1s ease-in;
+}
+
+/* Main product image zoom on hover */
+.single-pro-image img {
+  transition: transform 0.4s ease;
+}
+.single-pro-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Small image zoom on hover */
+.small-img-col {
+  transition: transform 0.3s ease;
+}
+.small-img-col:hover {
+  transform: scale(1.1);
+}
+
+/* Fade-in animation for product details section */
+.single-pro-details {
+  animation: fadeIn 1.5s ease-in;
+}
+
+/* Button hover animation */
+button {
+  transition:  0.3s ease, transform 0.2s ease;
+}
+button:hover {
+  background-color: hotpink;
+  transform: scale(1.05);
+}
+
+/* Input and select animation on focus */
+.single-pro-details input:focus,
+.single-pro-details select:focus {
+  border: 1px solid pink;
+  outline: none;
+  transition: border 0.3s ease;
+}
+    </style>
+</head>
+<body>
+    <section id="prodetails" class="section-p1">
+    <div class="single-pro-image">
+     <img src="./J.jpg" width="100%" id="MainImg">
+     <div class="small-img-group">
+        <div class="small-img-col">
+        <img src="./jj.webp" width="120px" height="120px" class="small-img">
+        </div>
+        <div class="small-img-col">
+        <img src="./jjj.jpg" width="120px" height="120px" class="small-img">
+        </div>
+        <div class="small-img-col">
+        <img src="./jjjj.jpg"width="120px" height="120px"  class="small-img">
+        </div>
+        <div class="small-img-col">
+        <img src="./jjjjj.jpg" width="120px" height="120px" class="small-img">
+        </div>
+     </div>
+    </div>
+    <div class="single-pro-details">
+    <h1>Home /Branded Jewlery</h1>
+    <h2>Girl's Branded Jewlery</h2>
+    <h2>$65.00</h2>
+    <select>
+        <option>Select Color</option>
+        <option>Black</option>
+        <option>Green</option>
+        <option>White</option>
+        <option>Pink</option>
+    </select>
+    <input type="number" value="1"><br><br>
+    <button  onclick="addToCart()" >Add To Cart</button>
+    <h2>Product Details</h2>
+    <p>Add a touch of sparkle to your outfit with our handpicked jewelry collection.<br> Featuring earrings, necklaces, rings, and bracelets, our jewelry is crafted to<br> highlight your style — whether subtle or bold</p>
+    <button onclick="window.location.href='index.html';">Back</button>
+    </div>
+    </section>
+    <script>
+    const mainImg = document.getElementById("MainImg");
+    const smallImgs = document.querySelectorAll(".small-img");
+
+    smallImgs.forEach(img => {
+      img.addEventListener("click", () => {
+        mainImg.src = img.src;
+      });
+    });
+
+     // Get selected product from localStorage
+    const product = JSON.parse(localStorage.getItem('selectedProduct'));
+    document.getElementById('product-name').innerText = product.name;
+    document.getElementById('product-price').innerText = 'Price: Rs. ' + product.price;
+
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Product added to cart!');
+    }
+  </script>
+</body>
+</html>
