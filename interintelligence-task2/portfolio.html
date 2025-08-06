@@ -1,0 +1,2823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Testimonials Carousel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+     
+      margin: 0;
+      padding: 0;
+    }
+
+    .testimonials-section {
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+
+    .testimonials-title {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      position: relative;
+      display: inline-block;
+    }
+@media (max-width: 800px) {
+  .testimonial-carousel {
+    flex-direction: column; /* buttons upar niche ho jayein */
+    gap: 20px;
+  }
+
+  .testimonial-arrow {
+    font-size: 2rem; /* thoda chhota arrow */
+    padding: 10px;
+  }
+
+  .testimonial-content {
+    min-width: 0;
+    max-width: 95vw;
+    padding: 30px 20px;
+  }
+
+  .testimonial-text {
+    font-size: 1.2rem;
+  }
+
+  .testimonials-title {
+    font-size: 2rem;
+  }
+
+  .testimonial-author {
+    flex-direction: column; /* avatar aur text vertical ho jayein */
+    gap: 10px;
+  }
+
+  .testimonial-name,
+  .testimonial-role {
+    text-align: center; /* text center align ho jaye */
+  }
+}
+@media (max-width: 480px) {
+  .testimonials-title {
+    font-size: 1.7rem;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+  }
+
+  .testimonial-arrow {
+    font-size: 1.8rem;
+  }
+
+  .testimonial-content {
+    padding: 20px 15px;
+  }
+
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+    .testimonials-title .underline {
+      display: block;
+      width: 90px;
+      height: 4px;
+      background: #222;
+      margin: 0 auto;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    .testimonial-carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial-arrow {
+      background: none;
+      border: none;
+      font-size: 2.5rem;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 0 18px;
+      user-select: none;
+    }
+
+    .testimonial-arrow:hover {
+      color: #00baff;
+    }
+
+    .testimonial-content {
+      /* background: #fff; */
+      border-radius: 12px;
+      padding: 40px 30px;
+      min-width: 600px;
+      max-width: 700px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+
+    .testimonial-content.fade-out {
+      opacity: 0;
+    }
+
+    .testimonial-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .testimonial-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #222;
+      text-align: left;
+    }
+
+    .testimonial-role {
+      font-size: 1rem;
+      color: #555;
+      text-align: left;
+    }
+
+    @media (max-width: 800px) {
+      .testimonial-content {
+        min-width: 0;
+        max-width: 95vw;
+        padding: 30px 20px;
+      }
+      .testimonial-text {
+        font-size: 1.2rem;
+      }
+      .testimonials-title {
+        font-size: 2rem;
+      }
+    }
+     html {
+        scroll-behavior: smooth;
+    }
+
+    /* herosection */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+         background: #ededed;
+        color: #222;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    /* navbarsticky */
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        /* ensures it stays on top of other content */
+        /* background-color: white; */
+        /* padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+    }
+
+    /* Header and Navbar */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 5vw 0 5vw;
+        background: #ededed;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        color: #888;
+        line-height: 1.1;
+    }
+
+    .logo-large {
+        font-size: 1.7rem;
+        color: #888;
+        font-weight: 400;
+    }
+
+    nav {
+        position: relative;
+        position: sticky;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 32px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #888;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+        color: #00baff;
+        border-bottom: 2px solid #00baff;
+    }
+
+    .nav-toggle {
+        display: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #00baff;
+        margin-right: 10px;
+    }
+
+    /* Hero Section */
+    #hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 5vw 0 5vw;
+        min-height: 80vh;
+        gap: 40px;
+    }
+
+    .hero-left {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .hello-badge {
+        display: inline-block;
+        background: #00baff;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 20px;
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin: 18px 0 10px 0;
+        color: #181818;
+        letter-spacing: 1px;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        color: #888;
+        margin-bottom: 32px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 24px;
+        margin-top: 18px;
+    }
+
+    .social-icons img {
+        width: 48px;
+        height: 48px;
+        background: #00baff;
+        border-radius: 50%;
+        padding: 8px;
+        transition: transform 0.2s;
+    }
+
+    .social-icons img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Profile Picture with Circles */
+    .hero-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-pic-wrapper {
+        position: relative;
+        width: 340px;
+        height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle-outer {
+        width: 340px;
+        height: 340px;
+        border-radius: 50%;
+        background: #d3d3d3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.circle-inner {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-pic {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid #fff;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+        .hero {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 3vw 0 3vw;
+        }
+
+        .hero-right,
+        .hero-left {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .profile-pic-wrapper {
+            width: 240px;
+            height: 240px;
+        }
+
+        .circle-outer {
+            width: 240px;
+            height: 240px;
+        }
+
+        .circle-inner {
+            width: 180px;
+            height: 180px;
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        #hero {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 3vw 0 3vw;
+        }
+
+        .hero-left,
+        .hero-right {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .profile-pic-wrapper {
+            width: 240px;
+            height: 240px;
+        }
+
+        .circle-outer {
+            width: 240px;
+            height: 240px;
+        }
+
+        .circle-inner {
+            width: 180px;
+            height: 180px;
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+        }
+    }
+
+    /* Navbar Toggle for Small Screens */
+    @media (max-width: 900px) {
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            background: #ededed;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            box-shadow: 0 2px 8px rgba(119, 81, 81, 0.08);
+            padding: 18px 0;
+            z-index: 100;
+        }
+        .nav{
+            position: relative;
+        }
+
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-toggle {
+            display: block;
+        }
+    }
+
+    .nav-link {
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    .nav-link.active {
+        color: blue;
+        font-weight: bold;
+        border-bottom: 2px solid blue;
+    }
+
+
+    /* experience */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #ededed;
+        color: #222;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    /* Header and Navbar */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 5vw 0 5vw;
+        background: #ededed;
+    }
+
+ .logo {
+        font-size: 1.2rem;
+        color: #888;
+        line-height: 1.1;
+    }
+
+    .logo-large {
+        font-size: 1.7rem;
+        color: #888;
+        font-weight: 400;
+    }
+
+    nav {
+        position: relative;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 32px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #888;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+        color: #00baff;
+        border-bottom: 2px solid #00baff;
+    }
+
+    .nav-toggle {
+        display: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #00baff;
+        margin-right: 10px;
+    }
+
+    /* Hero Section */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 5vw 0 5vw;
+        min-height: 80vh;
+        gap: 40px;
+    }
+
+    .hero-left {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .hello-badge {
+        display: inline-block;
+        background: #00baff;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 20px;
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin: 18px 0 10px 0;
+        color: #181818;
+        letter-spacing: 1px;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        color: #888;
+        margin-bottom: 32px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 24px;
+        margin-top: 18px;
+    }
+
+    .social-icons img {
+        width: 48px;
+        height: 48px;
+        background: #00baff;
+        border-radius: 50%;
+        padding: 8px;
+        transition: transform 0.2s;
+    }
+
+    .social-icons img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Profile Picture with Circles */
+    .hero-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-pic-wrapper {
+        position: relative;
+        width: 340px;
+        height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle-outer {
+        width: 340px;
+        height: 340px;
+        border-radius: 50%;
+        background: #d3d3d3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle-inner {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-pic {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid #fff;
+    }
+
+    /* Experience Cards */
+    .explarge {
+        font-size: xx-large;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    body {
+        background: #ededed;
+        font-family: 'Segoe UI', Arial, sans-serif;
+       
+        color: #222;
+    }
+ .experience-container {
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        padding: 40px 0 0 0;
+        align-items: center;
+    }
+
+    .experience-card {
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border-radius: 32px;
+        box-shadow: none;
+        width: 80vw;
+        max-width: 1600px;
+        min-height: 260px;
+        margin: 0 auto;
+        gap: 40px;
+        position: relative;
+    }
+
+    .experience-card3 {
+        margin-top: 100px;
+        margin-right: 180px;
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border-radius: 32px;
+        box-shadow: none;
+        width: 80vw;
+        max-width: 1600px;
+        min-height: 260px;
+        margin: 0 auto;
+        gap: 40px;
+        position: relative;
+    }
+
+    .exp-img {
+        width: 350px;
+        height: 240px;
+        object-fit: cover;
+        border-radius: 32px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    }
+
+    .flex {
+        display: flex;
+        margin-left: 20px;
+    }
+
+    .exp-content {
+        flex: 1;
+        padding: 0 32px;
+    }
+
+    .exp-content.right {
+        text-align: right;
+        order: 2;
+    }
+
+    .experience-card:nth-child(2) {
+        flex-direction: row-reverse;
+    }
+
+    .exp-content h2 {
+        font-size: 2.7rem;
+        font-weight: 700;
+        margin-bottom: 0.2em;
+        letter-spacing: 1px;
+    }
+
+    .exp-content h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.2em;
+    }
+
+    .exp-date {
+        font-size: 1.3rem;
+        color: #888;
+        margin-bottom: 0.7em;
+    }
+
+    .exp-desc {
+        font-size: 1rem;
+        margin-right: 280px;
+        color: #9b9898;
+        margin-bottom: 1.2em;
+        line-height: 1.3;
+    }
+
+    .exp-descl {
+        font-size: 1rem;
+        margin-left: 150px;
+        color: #9b9898;
+        margin-bottom: 1.2em;
+        line-height: 1.3;
+    }
+
+    .exp-icons {
+        font-size: 2rem;
+        color: #222;
+        display: flex;
+        gap: 18px;
+    }
+
+    .exp-content.right .exp-icons {
+        justify-content: flex-end;
+    }
+
+    /* @media (max-width: 1100px) {
+        .experience-card {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 98vw;
+            gap: 20px;
+        }
+
+        .exp-img {
+            width: 98vw;
+            max-width: 420px;
+            height: 180px;
+        }
+
+        .exp-content,
+        .exp-content.right {
+            padding: 0 10px;
+            text-align: left;
+            order: unset;
+        }
+    } */
+
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+        .hero {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 3vw 0 3vw;
+        }
+
+        .hero-right,
+        .hero-left {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .profile-pic-wrapper {
+            width: 240px;
+            height: 240px;
+        }
+
+        .circle-outer {
+            width: 240px;
+            height: 240px;
+        }
+         .circle-inner {
+            width: 180px;
+            height: 180px;
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+        }
+    }
+
+    /* Navbar Toggle for Small Screens */
+    @media (max-width: 900px) {
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            background: #ededed;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 200px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 18px 0;
+            z-index: 100;
+        }
+
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-toggle {
+            display: block;
+        }
+    }
+
+    .h1 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    .span {
+        text-decoration: underline;
+    }
+
+    .achievement {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 15px;
+        font-size: 20px;
+    }
+
+    .green {
+        background: #2ecc71;
+    }
+
+    .blue {
+        background: #3498db;
+    }
+
+    .teal {
+        background: #1abc9c;
+    }
+
+    .pink {
+        background: #e91e63;
+    }
+
+    .star {
+        background: #2ecc71;
+    }
+
+    .icon green {
+        margin-bottom: 10px;
+    }
+
+    .text {
+        line-height: 1.4;
+    }
+
+    .text .title {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .text .subtitle {
+        color: #555;
+        font-size: 14px;
+    }
+
+    .gold {
+        background: #f1c40f;
+    }
+
+    .silver {
+        background: #95a5a6;
+    }
+
+    .bronze {
+        background: #d35400;
+    }
+
+    .main {
+        margin-left: 450px;
+    }
+
+    .container {
+        display: flex;
+    }
+
+    .left {
+        margin-left: 100px;
+    }
+
+    .right {
+        margin-left: 50px;
+    }
+
+    @media (max-width: 1024px) {
+        .main {
+            margin-left: 0;
+            padding: 0 20px;
+        }
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .left,
+        .right {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        .achievement {
+            flex-direction: row;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .icon {
+            margin-right: 10px;
+        }
+
+        .h1 {
+            font-size: 28px;
+        }
+
+        .text .title {
+            font-size: 16px;
+        }
+
+        .text .subtitle {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .h1 {
+            font-size: 24px;
+        }
+
+        .icon {
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+        }
+
+        .text .title {
+            font-size: 15px;
+        }
+
+        .text .subtitle {
+            font-size: 12px;
+        }
+    }
+ .button {
+        color: white;
+        background-color: #00baff;
+        border-radius: 20px;
+        padding: 10px;
+        border: none;
+    }
+
+    body {
+        background: #f5f6fa;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 10px;
+    }
+
+    /* .title {
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+} */
+    .blogs {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .blog-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-8px) scale(1.03);
+    }
+
+    .blog-img {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .blog-img-text {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: #222;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        max-width: 80%;
+    }
+
+    .blog-content {
+        padding: 20px 20px 15px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-content h2 {
+        font-size: 1.35rem;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .blog-content .date {
+        color: #888;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .tags {
+        margin-bottom: 15px;
+    }
+
+    .tags span {
+        display: inline-block;
+        background: #00bfff;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 0.95rem;
+        margin-right: 7px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .blog-footer {
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px;
+        color: #888;
+        font-size: 1.1rem;
+        margin-top: auto;
+    }
+
+    .blog-footer i {
+        margin-right: 5px;
+    }
+
+    @media (max-width: 1100px) {
+        .blogs {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-card {
+            width: 90%;
+            max-width: 400px;
+        }
+    }
+
+    body {
+        background: #f5f6fa;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 30px 10px 0 10px;
+    }
+
+    .blogs {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+ .blog-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+        overflow: hidden;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-8px) scale(1.03);
+    }
+
+    .blog-img {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        background: #f5f6fa;
+    }
+
+    .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .blog-img-text {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: #222;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        max-width: 80%;
+    }
+ .blog-content {
+        padding: 20px 20px 15px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-content h2 {
+        font-size: 1.35rem;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .blog-content .date {
+        color: #888;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .tags {
+        margin-bottom: 15px;
+    }
+
+    .tags span {
+        display: inline-block;
+        background: #00bfff;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 0.95rem;
+        margin-right: 7px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .blog-footer {
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px;
+        color: #888;
+        font-size: 1.1rem;
+        margin-top: auto;
+    }
+
+    .blog-footer i {
+        margin-right: 5px;
+    }
+
+    @media (max-width: 1100px) {
+        .blogs {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-card {
+            width: 90%;
+            max-width: 400px;
+        }
+    }
+
+    body {
+        background: #f5f6fa;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 30px 10px 0 10px;
+    }
+
+    .blogs {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .blog-card {
+        background: #fff;
+        border-radius: 16px;
+         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+        overflow: hidden;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-8px) scale(1.03);
+    }
+
+    .blog-img {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        background: #f5f6fa;
+    }
+
+    .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .blog-img-text {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: #222;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        max-width: 80%;
+    }
+
+    .blog-img.dark {
+        background: #222;
+    }
+
+    .blog-content {
+        padding: 20px 20px 15px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-content h2 {
+        font-size: 1.35rem;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        line-height: 1.3;
+        text-transform: uppercase;
+    }
+
+    .blog-content .date {
+        color: #888;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .tags {
+        margin-bottom: 15px;
+    }
+
+    .tags span {
+        display: inline-block;
+        background: #00bfff;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 0.95rem;
+        margin-right: 7px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .blog-footer {
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px;
+        color: #888;
+        font-size: 1.1rem;
+        margin-top: auto;
+    }
+
+    .blog-footer i {
+        margin-right: 3px;
+    }
+
+    .view-all {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0 0 0;
+    }
+
+    .view-all button {
+        background: #00bfff;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 12px 32px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .view-all button:hover {
+        background: #0099cc;
+    }
+
+    @media (max-width: 1200px) {
+        .blogs {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-card {
+            width: 90%;
+            max-width: 500px;
+        }
+    }
+
+    .contact-section {
+        margin: 0;
+        padding: 0;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: #03A9F4;
+    }
+
+    #contact-section {
+        min-height: 100vh;
+        background: #03A9F4;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #contact-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+
+    }
+
+    .subtitle {
+        text-align: center;
+     font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: white;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .social-icons a {
+        color: #fff;
+        font-size: 2.2rem;
+        transition: color 0.2s;
+    }
+
+    .social-icons a:hover {
+        color: #222;
+    }
+
+    .send-message {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        max-width: 700px;
+        min-width: 250px;
+        gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 1rem;
+        border: none;
+        border-radius: 12px;
+        background: #e0e0e0;
+        font-size: 1rem;
+        resize: none;
+    }
+
+    .contact-form textarea {
+        min-height: 80px;
+        max-height: 200px;
+    }
+
+    .contact-form button {
+        color: white;
+        background-color: #00baff;
+        border-radius: 10px;
+        padding: 10px;
+        border: none;
+        width: 90px;
+    }
+
+    .contact-form button:hover {
+        background: #03A9F4;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+
+    @media (max-width: 900px) {
+        .contact-form {
+            width: 80%;
+        }
+
+        .contact-section h1 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .contact-form {
+            width: 95%;
+        }
+
+        .contact-section h1 {
+            font-size: 1.5rem;
+        }
+
+        .social-icons {
+            gap: 1rem;
+        }
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+     
+      margin: 0;
+      padding: 0;
+    }
+
+    .testimonials-section {
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+
+    .testimonials-title {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      position: relative;
+      display: inline-block;
+    }
+@media (max-width: 800px) {
+  .testimonial-carousel {
+    flex-direction: column; /* buttons upar niche ho jayein */
+    gap: 20px;
+  }
+
+  .testimonial-arrow {
+    font-size: 2rem; /* thoda chhota arrow */
+    padding: 10px;
+  }
+
+  .testimonial-content {
+    min-width: 0;
+    max-width: 95vw;
+    padding: 30px 20px;
+  }
+
+  .testimonial-text {
+    font-size: 1.2rem;
+  }
+
+  .testimonials-title {
+    font-size: 2rem;
+  }
+
+  .testimonial-author {
+    flex-direction: column; /* avatar aur text vertical ho jayein */
+    gap: 10px;
+  }
+
+  .testimonial-name,
+  .testimonial-role {
+    text-align: center; /* text center align ho jaye */
+  }
+}
+@media (max-width: 480px) {
+  .testimonials-title {
+    font-size: 1.7rem;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+  }
+
+  .testimonial-arrow {
+    font-size: 1.8rem;
+  }
+
+  .testimonial-content {
+    padding: 20px 15px;
+  }
+
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+    .testimonials-title .underline {
+      display: block;
+      width: 90px;
+      height: 4px;
+      background: #222;
+      margin: 0 auto;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    .testimonial-carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial-arrow {
+      background: none;
+      border: none;
+      font-size: 2.5rem;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 0 18px;
+      user-select: none;
+    }
+
+    .testimonial-arrow:hover {
+      color: #00baff;
+    }
+
+    .testimonial-content {
+      /* background: #fff; */
+      border-radius: 12px;
+      padding: 40px 30px;
+      min-width: 600px;
+      max-width: 700px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+
+    .testimonial-content.fade-out {
+      opacity: 0;
+    }
+
+    .testimonial-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .testimonial-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #222;
+      text-align: left;
+    }
+
+    .testimonial-role {
+      font-size: 1rem;
+      color: #555;
+      text-align: left;
+    }
+
+    @media (max-width: 800px) {
+      .testimonial-content {
+        min-width: 0;
+        max-width: 95vw;
+        padding: 30px 20px;
+      }
+      .testimonial-text {
+        font-size: 1.2rem;
+      }
+      .testimonials-title {
+        font-size: 2rem;
+      }
+    }
+   
+    
+       
+    
+   
+     /* === Animations === */
+
+/* Fade in and slide up */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale on hover */
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+/* Pulse circle */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+ .hero-left {
+  animation: fadeSlideUp 1s ease-out forwards;
+}
+
+.hero-right .circle-outer {
+  animation: pulse 3s ease-in-out infinite;
+}
+ .nav-links a {
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0;
+  background: #00baff;
+  transition: width 0.3s ease;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+ 
+ 
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+/* ---------- General Fade In ---------- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.experience-container,
+#experience-card,
+.achievement,
+#About .container {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.experience-container {
+  animation-delay: 0.2s;
+}
+#experience-card {
+  animation-delay: 0.4s;
+}
+.achievement {
+  animation-delay: 0.6s;
+}
+#About .container {
+  animation-delay: 0.8s;
+}
+
+/* ---------- Hover Card Animation ---------- */
+.experience-card,
+#experience-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.experience-card:hover,
+#experience-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Icon Hover Animation ---------- */
+.exp-icons span,
+.achievement .icon {
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.exp-icons span:hover,
+.achievement .icon:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* ---------- Button Animation ---------- */
+.button {
+  transition: 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  background: #222;
+  transform: scale(1.05);
+}
+
+/* ---------- About Section Image Animation ---------- */
+#About .left img {
+  transition: transform 0.5s ease;
+}
+
+#About .left img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+ /* Add a base transition for smoothness */
+.blog-card {
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* On hover: scale up the card slightly and lift it */
+.blog-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Image zoom effect */
+.blog-img {
+  overflow: hidden;
+  position: relative;
+}
+
+.blog-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-img img {
+  transform: scale(1.1);
+}
+
+/* Fade-in text overlay */
+.blog-img-text {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  width: 100%;
+  padding: 20px;
+   transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.blog-card:hover .blog-img-text {
+  transform: translateY(0%);
+}
+
+/* Smooth tags appearance */
+.tags .button {
+  transition: transform 0.3s ease,  0.3s ease;
+}
+
+.tags .button:hover {
+  transform: translateY(-3px);
+  background: #222;
+  color: #fff;
+}
+/* ---------- Contact Section Animations ---------- */
+
+/* Fade in & slide up */
+#contact-section {
+  animation: fadeSlideUp 1s ease forwards;
+  opacity: 0; /* starts hidden */
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Social Icons: scale & rotate on hover */
+.social-icons a {
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.3) rotate(10deg);
+  color: #222;
+}
+
+/* Input & textarea: subtle box shadow on focus */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 186, 255, 0.5);
+   background: #fff;
+  transition: box-shadow 0.3s ease, 0.3s ease;
+}
+
+/* Button: pop effect on hover */
+.contact-form button {
+  transition: transform 0.3s ease,  0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 186, 255, 0.4);
+}
+/* ---------- Testimonials Section Styles ---------- */
+.testimonials-section {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.testimonials-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .experience-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 0;
+    align-items: center;
+  }
+
+  .experience-card,
+  #experience-card {
+    flex-direction: column !important;
+    align-items: center;
+    width: 95vw;
+    gap: 20px;
+  }
+
+  .exp-img {
+    width: 95vw !important;
+    max-width: 420px;
+    height: auto !important;
+    border-radius: 24px;
+    object-fit: cover;
+  }
+
+  .exp-content {
+    text-align: center !important;
+    padding: 0 20px;
+    order: 2;
+
+    /** NEW: Text readability fix */
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  .exp-content.right {
+    text-align: center !important;
+  }
+
+  .exp-content p {
+    margin-right: 20px;
+    margin-left: 20px;
+    line-height: 1.6;
+  }
+
+  .exp-icons {
+    justify-content: center;
+  }
+}
+
+  
+
+  </style>
+</head>
+<body>
+<header>
+        <div class="logo">
+            <span class="logo-small">Tapajyoti</span><br>
+            <span class="logo-large">Bose</span>
+        </div>
+        <nav class="navbar">
+            <div class="nav-toggle" id="nav-toggle">&#9776;</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" class="nav-link">HOME</a></li>
+                <li><a href="#experience" class="nav-link">EXPERIENCE</a></li>
+                <li><a href="#achievements">ACHIEVEMENTS</a></li>
+                <li><a href="#About">ABOUT</a></li>
+                <li><a href="#Blogs">BLOGS</a></li>
+                <li><a href="#testimonials">TESTIMONIALS</a></li>
+                <li><a href="#contact-section">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="hero">
+            <div class="hero-left">
+                <div class="hello-badge">Hello! I am</div>
+                <h1>TAPAJYOTI BOSE</h1>
+                <p class="subtitle">Product Developer</p>
+                <div class="social-icons">
+                    <a href="#"><img
+                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                            alt="LinkedIn"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                            alt="GitHub"></a>
+                    <a href="#"><img src="https://d2fltix0v2e0sb.cloudfront.net/dev-badge.svg" alt="DEV"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Upwork"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968706.png" alt="Medium"></a>
+                     </div>
+            </div>
+            <div class="hero-right">
+                <div class="profile-pic-wrapper">
+                    <div class="circle-outer">
+                        <div class="circle-inner">
+                            <img src="./Avater1.png" alt="Tapajyoti Bose" class="profile-pic">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Toggle nav on small screens
+        document.getElementById('nav-toggle').onclick = function () {
+            document.getElementById('nav-links').classList.toggle('show');
+        }
+        //section
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - sectionHeight / 3) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+    </script>
+    <section id="experience">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="h1">EXPE<span class="span">RI</span>ENCE</h1>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./one.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>UPWORK</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">May 2021 - Present</p>
+                    <p class="exp-desc">
+                        A Top Rated Freelancer at Upwork, an American freelancing platform and the largest network of
+                        independent professionals to get things done, from quick turnarounds to big transformations.
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>LOUNGE</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">January 2022 - Present</p>
+                    <p class="exp-descl">
+                        Developed features for the web & native app which took the app from launch to 90,000 monthly
+                        active users.<br>
+      Was awarded with a 5-Star review and the following testimonial: “Tap is an exceptional software
+                        engineer. He worked in my team for nearly a year, and consistently performed to an extremely
+                        high level. In particular his strengths are his attitude, speed to output, intellectual
+                        curiosity and ability to learn new things. I can't recommend Tap highly enough!”
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                        <span><i class="fa-solid fa-robot"></i></span>
+                        <span><i class="fa-brands fa-apple"></i></span>
+                    </div>
+                </div>
+                <img src="./phone.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <!-- card3 -->
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./freelance.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>REPLAI</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">January 2022</p>
+                    <p class="exp-desc">
+                        Developed the entire UI Library for Replai,a Multi-Milion Dollar<br>Startup that Leverages AI
+                        and Machine
+                        Vission to make better<br>creative decisions at scale.
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>CLYDE.AI</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">November 2021 - January 2022</p>
+                    <p class="exp-descl">
+                        Clyde is a AI powered Web Applications which automatically calculates the value of rewards you'd
+                        earn based on your<br>transaction
+                        data.Collaborated with the team to develop the<br>Clyde Web Application.
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+
+                    </div>
+                </div>
+                <img src="./ai.avif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./finance.jpg" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>ELEMENT FINANCE</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">November 2021</p>
+                    <p class="exp-desc">
+                         Created the component of Library for Element Finance and was<br>
+                        awarded a 5 Star Review for the final product and the following <br>
+                        Testimonial."Tapajyoti was great and not only completed the<br>
+                        the job to the best of his ability but under the alloted time and<br>
+                        budget!He was quick to communicate about issues and think<br>
+                        on his feet.Great to work with!"
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>CHIRRUP</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">May 2021 - September 2021</p>
+                    <p class="exp-descl">
+                        Built theDashboard UI and was awarded a 5 Star Review for the<br>
+                        final product the the following Testimonial."Amaizing front-end<br>
+                        developer.Tap helped build out our web app and will add value<br>
+                        to any future project he works on.Works quickly,Easily<br>adaptable.And helped form solutions to
+                        problems that poppedup along the way .We'd happily hire him again."
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+
+                    </div>
+                </div>
+                <img src="./lapto.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./confire.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>HOMEJAM</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">Febraury 2021 </p>
+                    <p class="exp-desc">
+                        Developed the payment confirmation page and a plethora of<br>
+                        bug fixes for HomeJam Web App,an application delivering<br>
+                        virtual concerts like you've never experienced before.
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>SMARTSAPP</h3>
+                    <h4>Freelance</h4>
+                    <p class="exp-date">November 2020 - January 2021</p>
+                    <p class="exp-descl">
+                        With SmartsApp.you'll get fast and simple messaging secured with End to End Encryption for
+                        free,available on the web,all
+                        android & IOS phones,and Windows,Linux & macOS computers all over the world.Used Difflie-Helimen
+                        key Exchange algorith to generate the shared keys &
+                        XOR Cipher to encrypt messages.The tech stack consisted of React,Redux,Electron,Flutter &
+                        Firebae.
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                        <span><i class="fa-brands fa-github"></i></span>
+                        <span><i class="fa-solid fa-download"></i></span>
+                    </div>
+                </div>
+                <img src="./phone.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./algo.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>THE ALGORITHMS</h3>
+                    <h4>Open Source Maintainer </h4>
+                    <p class="exp-date">October 2020 - Present</p>
+                    <p class="exp-desc">
+                        Maintaing and Adding New Algorithms to the code base of <br>the world's largest Open Source
+                        resources for learning Data<br>
+                        Structures & Algorithms and their implementation in any<br> Programming Language
+                    </p>
+                    <div class="exp-icons">
+
+                        <span><i class="fa-brands fa-github"></i></span>
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>HACKTOBER FEST 2020</h3>
+                    <h4>Open Source</h4>
+                    <p class="exp-date">October 2020</p>
+                    <p class="exp-descl">
+                        Created Quality Pull Requests in the celebration of the Open source spirit at
+                        HACKtoberFest,month alond celebration of open source software run by digitalOcean
+                        in partnership with GitHub and Twilio.
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+
+                    </div>
+                </div>
+                <img src="./hacka.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./phone.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>UNHOOK</h3>
+                     <h4>Personal Project </h4>
+                    <p class="exp-date">October 2020 </p>
+                    <p class="exp-desc">
+                        If you are one of the rare breed of people who call themselves programmers,you must have faced
+                        the following situation:
+                        ypu were so many working,that you forgot to take a break from cooding...now your eyes hurt due
+                        to excessive stress on them.The solution?Use UnHook an app that helps you UnHook
+                        yourself from the screen by remaining you to take breaks at the right time.The teck stack
+                        consisted of React,Redux and Electron.
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-brands fa-github"></i></span>
+                        <span><i class="fa-solid fa-download"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>PIZZA MAN</h3>
+                    <h4>Personal Project</h4>
+                    <p class="exp-date">August 2020 </p>
+                    <p class="exp-descl">
+                        Pizza Man is always open to serve you.Order all your favourite pizzas from the comfort of your
+                        home,and we will ensure free
+                        delivery for all orders.The teck stack consisted od React & Redux.
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+                        <span><i class="fa-brands fa-github"></i></span>
+
+                    </div>
+                </div>
+                <img src="./pizza.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+        <div class="experience-container">
+            <!-- Card 1 -->
+            <div id="experience-card" class="flex">
+                <div><img src="./weather.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+                <div class="exp-content">
+                    <h3>WEATHER MAN </h3>
+                    <h4>Personal Project</h4>
+                    <p class="exp-date">May 2020 </p>
+                    <p class="exp-desc">
+                        Weather Man haslocal and international weather forcasts<br> from the most accurate weather
+                        forcasting technology<br>
+                        featuring up-to-the-minute weather reports.The teck stack<br> consisted of Python and Django
+                        with with weather weather API,<br>
+                        Charts.js & AOS.
+                    </p>
+                    <div class="exp-icons">
+
+                        <span><i class="fa-brands fa-github"></i></span>
+                        <span><i class="fa-solid fa-link"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="experience-card">
+                <div class="exp-content right">
+                    <h3>CAMPUS 24</h3>
+                    <h4>Internship</h4>
+                    <p class="exp-date">January 2020-July 2020</p>
+                    <p class="exp-descl">
+                        Developed the landing page and worked on the web applications of campus 24,a tech startup aiming
+                        tobrevolutionize
+                        the interactions between college departments by fueling collaboration,enterpreneurial
+                        spirit,talent development,learning experience,and team spirit.
+
+                    </p>
+                    <div class="exp-icons">
+                        <span><i class="fa-solid fa-link"></i></span>
+
+                    </div>
+                </div>
+                <img src="./phone.jfif" alt="Lounge" class="exp-img">
+            </div>
+        </div>
+
+        <div id="experience-card" class="flex">
+            <div><img src="./daily.jfif" width="100px" alt="Upwork" class="exp-img"></div>
+            <div class="exp-content">
+                <h3>DAILY CODING PROBLEMS</h3>
+                <h4>Personal Project</h4>
+                <p class="exp-date">November 2019-February 2021</p>
+                <p class="exp-desc">
+                    Solved 350+ interview problems from Daily Coding Problem,a<br>
+                    mailing list for coding interview problems asked at FAANG and <br>other top tech companies.
+                </p>
+                <div class="exp-icons">
+
+                    <span><i class="fa-brands fa-github"></i></span>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="achievements">
+        <h1 class="h1">ACHIE<span class="span">V</span>EMENTS</h1>
+        <div class="main">
+            <div class="achievement">
+                <div class="icon green">📄</div>
+                <div class="text">
+                    <div class="title">5+ TIMES GLOBAL #1 WEEKLY BLOG WRITER</div>
+                    <div class="subtitle">Dev<br>January, 2022</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                <div class="icon blue">🏆</div>
+                <div class="text">
+                    <div class="title">TOP RATED FREELANCER</div>
+                    <div class="subtitle">Upwork<br>September, 2021</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                <div class="icon teal">🚀</div>
+                <div class="text">
+                    <div class="title">RISING TALENT</div>
+                    <div class="subtitle">Upwork</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                <div class="icon pink">🚁</div>
+                <div class="text">
+                    <div class="title">MARS 2020 HELICOPTER MISSION CONTRIBUTOR</div>
+                    <div class="subtitle">GitHub & NASA</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                 <div class="icon star">⭐</div>
+                <div class="text">
+                    <div class="title">GLOBAL RANK 750</div>
+                    <div class="subtitle">Google Kickstart 2020 Round H</div>
+                </div>
+            </div>
+            <div class="achievement">
+                <div class="icon gold">🥇</div>
+                <div class="text">
+                    <div class="title">WINNER OF CODING COMPETITION</div>
+                    <div class="subtitle">RCC Institute of Information Technology<br>March, 2020</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                <div class="icon silver">🥈</div>
+                <div class="text">
+                    <div class="title">1ST RUNNER-UP OF CODING COMPETITION</div>
+                    <div class="subtitle">Heritage Institute of Information Technology<br>September, 2019</div>
+                </div>
+            </div>
+
+            <div class="achievement">
+                <div class="icon bronze">🥉</div>
+                <div class="text">
+                    <div class="title">2ND RUNNER-UP OF CODING COMPETITION</div>
+                    <div class="subtitle">Government College of Engineering and Ceramic Technology<br>March, 2019</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="About">
+        <h1 class="h1">AB<span class="span">O</span>UT</h1>
+        <br>
+        <br>
+        <br>
+        <div class="container">
+            <div class="left">
+                <img src="./girl.jfif" width="400px" height="200px">
+            </div>
+            <div class="right">
+                <p>I am Tapajyoti Bose, a Top Rated Freelancer on Upwork. I am also an avid Open Source Conmoutar<br>
+                    with contributions ranging from Huge Feature Additions to Tiny Fixes and Documentation changes
+                    at<br> several Large Organizations (like Microsoft. Amazon, Material Ul, Numpy, Webhint, etc). The
+                    Client<br> Review below, which you will find in my Upwork reviews and others like it, describes the
+                    qualtiy of<br> work and value that you can expect from working with me: "Highly skilled frontarld
+                    developer.I was<br> continuously impressed with how quickly Tap could help turn a concept into
+                    working product. He will'be<br> be an
+                    asset on any project he works on and I'd happily work with".</p>
+                    <br>
+                <button onclick="window.open('insha.pdf', '_blank')" class="button">
+                    View Resume
+                </button>
+                    <br>
+               
+                <br>
+                <br><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </section>
+    <section id="Blogs">
+        <h1 class="h1">BL<span class="span">O</span>GS</h1>
+        <div class="container">
+
+            <div class="blogs">
+                <!-- Blog Card 1 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg" alt="Blog 1">
+                        <div class="blog-img-text">
+                            <p>7 Libraries<br>You Should Know as a<br>React Developer <span>💯🔥</span></p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>7 LIBRARIES YOU SHOULD KNOW AS A REACT DEVELOPER <span>💯🔥</span></h2>
+                        <p class="date">Sat Mar 04 2023</p>
+                        <div class="tags">
+                            <button class="button">react</button>
+                            <button class="button">Javascript</button>
+                            <button class="button">Webdev</button>
+                            <button class="button">Productivity</button>
+
+                        </div>
+                        <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 523</span>
+                            <span><i class="fa-regular fa-comment"></i> 27</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg" alt="Blog 2">
+                        <div class="blog-img-text">
+                            <p>7 JavaScript Web APIs<br>To build Futuristic Websites<br>you didn't know <span>🤯</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>7 JAVASCRIPT WEB APIS TO BUILD FUTURISTIC WEBSITES YOU DIDN'T KNOW <span>🤯</span></h2>
+                        <p class="date">Sat Feb 18 2023</p>
+                        <div class="tags">
+                            <button class="button">webdev</button>
+                            <button class="button">Javascript</button>
+                            <button class="button">html</button>
+                            <button class="button">beginners</button>
+                        </div>
+                        <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 820</span>
+                            <span><i class="fa-regular fa-comment"></i> 51</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Card 3 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg" alt="Blog 3">
+                        <div class="blog-img-text">
+                            <p>7 Free Public APIs<br>You will love as a developer</p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>7 FREE PUBLIC APIS YOU WILL LOVE AS A DEVELOPER <span>💖</span></h2>
+                        <p class="date">Sat Feb 04 2023</p>
+                        <div class="tags">
+                            <button class="button">javascript</button>
+                            <button class="button">webdev</button>
+                            <button class="button">programming</button>
+                            <button class="button">api</button>
+                        </div>
+                        <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 1185</span>
+                            <span><i class="fa-regular fa-comment"></i> 27</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="blogs">
+                <!-- Blog Card 4-->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg" alt="Blog 1">
+                        <div class="blog-img-text">
+                            <p>7 Shorthand Optimizations<br>Every JavaScript Developer Should Know 😎</p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>7 SHORTHAND OPTIMIZATION TRICKS EVERY JAVASCRIPT DEVELOPER SHOULD KNOW <span>😎</span></h2>
+                        <p class="date">Sat Oct 29 2022</p>
+                        <div class="tags">
+                            <button class="button">Javascript</button>
+                            <button class="button">webdev</button>
+                            <button class="button">programming</button>
+                            <button class="button">Productivity</button>
+                        </div>
+                        <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 923</span>
+                            <span><i class="fa-regular fa-comment"></i> 56</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Card 5-->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="./html.jfif" alt="Blog 2">
+                        <div class="blog-img-text">
+                            <p>7 Cool HTML Elements<br>Nobody Uses 🌐😎</p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>7 COOL HTML ELEMENTS NOBODY USES</h2>
+                        <p class="date">Sat Oct 01 2022</p>
+                        <div class="tags">
+                            <button class="button">webdev</button>
+                            <button class="button">html</button>
+                            <button class="button">javascript </button>
+                            <button class="button">Programming</button>
+                        </div>
+                         <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 478</span>
+                            <span><i class="fa-regular fa-comment"></i> 40</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Card 6-->
+                <div class="blog-card">
+                    <div class="blog-img dark">
+                        <img src="./css.png" alt="Blog 3">
+                        <div class="blog-img-text">
+                            <p>Mastering these 7 Basics CSS<br>Skills will make you a Frontend Wizard 🧙‍♂️✨</p>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2>MASTERING THESE 7 BASICS CSS SKILLS WILL MAKE YOU A FRONTEND WIZARD 🧙‍♂️✨</h2>
+                        <p class="date">Sat Sep 10 2022</p>
+                        <div class="tags">
+                            <button class="button">webdev</button>
+                            <button class="button">programming</button>
+                            <button class="button">css</button>
+                            <button class="button">beginners</button>
+                        </div>
+                        <div class="blog-footer">
+                            <span><i class="fa-regular fa-heart"></i> 625</span>
+                            <span><i class="fa-regular fa-comment"></i> 15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+    </section>
+  
+  <section class="testimonials-section" id="testimonials">
+    <h2 class="testimonials-title">
+      TESTIMONIALS<span class="underline"></span>
+    </h2>
+    <div class="testimonial-carousel">
+      <button class="testimonial-arrow left" aria-label="Previous testimonial">&#60;</button>
+      <div class="testimonial-content">
+        <p class="testimonial-text"></p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">
+            <!-- ✅ Static Avatar -->
+            <img src="./Avater.png" alt="Avatar" />
+          </div>
+          <div>
+            <div class="testimonial-name"></div>
+            <div class="testimonial-role"></div>
+          </div>
+        </div>
+      </div>
+      <button class="testimonial-arrow right" aria-label="Next testimonial">&#62;</button>
+    </div>
+  </section>
+
+  <script>
+    const testimonials = [
+      {
+  text: 'HAD A REALLY GREAT EXPERIENCE WORKING WITH TAP. EVEN BEFORE STARTING THE CONTRACT HE WAS ALREADY EXPERIMENTING IN A CODE SANDBOX AND STUDYING THE PROJECT.',
+        name: 'FABRIZIO RINALDI',
+        role: 'Client (Serial Entrepreneur)'
+      },
+      {
+        text: 'TAP IS AN EXCEPTIONAL SOFTWARE ENGINEER. HE WORKED IN MY TEAM FOR NEARLY A YEAR, AND CONSISTENTLY PERFORMED TO AN EXTREMELY HIGH LEVEL.',
+        name: 'JACK SYMONDS',
+        role: 'Client (Co-Founder/CEO at Lounge)'
+      },
+      {
+        text: 'TAPAJYOTI WAS GREAT AND NOT ONLY COMPLETED THE JOB TO THE BEST OF HIS ABILITY BUT UNDER THE ALLOTTED TIME AND BUDGET!',
+        name: 'TINA HAIBODI',
+        role: 'Client (Element Finance)'
+      }
+    ];
+
+    let currentTestimonial = 0;
+    const testimonialContent = document.querySelector('.testimonial-content');
+    const testimonialText = testimonialContent.querySelector('.testimonial-text');
+    const testimonialName = testimonialContent.querySelector('.testimonial-name');
+    const testimonialRole = testimonialContent.querySelector('.testimonial-role');
+
+    function showTestimonial(index) {
+      const t = testimonials[index];
+      testimonialText.textContent = t.text;
+      testimonialName.textContent = t.name;
+      testimonialRole.textContent = t.role;
+    }
+
+    function fadeToTestimonial(nextIndex) {
+      testimonialContent.classList.add('fade-out');
+      setTimeout(() => {
+        showTestimonial(nextIndex);
+        testimonialContent.classList.remove('fade-out');
+      }, 400);
+    }
+
+    document.querySelector('.testimonial-arrow.left').addEventListener('click', () => {
+      currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+      fadeToTestimonial(currentTestimonial);
+    });
+
+    document.querySelector('.testimonial-arrow.right').addEventListener('click', () => {
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      fadeToTestimonial(currentTestimonial);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showTestimonial(currentTestimonial);
+    });
+  </script>
+<section id="contact-section">
+        <h1 class="h1">CON<span class="span">T</span>ACT</h1>
+        <p class="subtitle">
+           Have a question? Want to Collaborate? Just want to chat?<br>
+            Reach out to me on
+        </p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-dev"></i></a>
+            <a href="#"><i class="fas fa-arrow-up"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="send-message">Send me a message</p>
+        <form class="contact-form">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="text" placeholder="Subject" required>
+            <textarea placeholder="Message" required></textarea>
+            <button>Send</button>
+        </form>
+    </section>
+
+
+
+
+</body>
+</html>
+       
