@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animated Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f8;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .left {
+      flex: 1;
+      background: linear-gradient(to bottom right,rgb(97, 5, 97), rgb(146, 49, 146));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 100px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .left img {
+      width: 80%;
+      max-width: 400px;
+
+      /* Animation */
+      opacity: 0;
+      transform: translateX(-50px);
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .right {
+      flex: 1;
+      background-color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 240px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    i{
+      margin-top: 25px;
+      margin-left: 30px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+
+      /* Form Fade In */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    form h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    form p {
+      margin-bottom: 20px;
+      color: #777;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      border: 2px solid #9c9696;
+      border-radius: 6px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: purple;
+      box-shadow: 0 0 5px rgb(189, 83, 189);
+    }
+
+    .options a {
+      font-size: 0.9em;
+      color: purple;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .options a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      height: 2px;
+      width: 0;
+      background: purple;
+      transition: 0.3s;
+    }
+
+    .options a:hover::after {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+       background: linear-gradient(to bottom right,rgb(97, 5, 97), rgb(146, 49, 146));
+      border: none;
+      color: white;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+   .icon{
+    display: flex;
+    /* margin-left: 70px; */
+   }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .signup {
+      margin-top: 15px;
+    }
+
+    /* ======== MEDIA QUERY ======== */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .left,
+      .right {
+        margin: 20px 20px;
+        width: 100%;
+      }
+
+      .left {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .right {
+        margin-left: 0;
+        margin-right: 0;
+        /* padding: 20px; */
+      }
+
+      .left img {
+        width: 100%;
+        max-width: 300px;
+      }
+      input[type="email"],
+    input[type="password"] {
+      width: 90%;
+      
+    }
+    }
+   .icon{
+    margin-left:0px;
+   }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="./Tablet login-rafiki.png" alt="3D Image" />
+    </div>
+    <div class="right">
+       <div class="icon">
+        <i class="fa-regular fa-user"></i>
+        <h3>T Y L E T</h3>
+    </div>
+      <form id="loginForm">
+        <h1>Log In</h1>
+        <p>Enter your email and password to login to your dashboard</p>
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="Enter your Email" id="email" required />
+
+        <label for="password">Password</label>
+        <input type="password"placeholder="Enter your Password" id="password" required />
+
+        <div class="options">
+          <label><input type="checkbox" id="remember" /> Remember Me</label>
+        </div>
+
+      <!-- <button onclick="location.href='message1.html'">Sign in</button> -->
+       <button type="submit">Sign in</button>
+
+        <div class="options">
+          <p class="signup">Don't have an account? <a href="signup.html">Sign Up</a></p>
+          <a href="forgot.html">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === "" || password === "") {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Please enter a valid email.");
+        return;
+      }
+      window.location.href="message1.html"
+      // alert("Login successful! ");
+    });
+  </script>
+</body>
+</html>

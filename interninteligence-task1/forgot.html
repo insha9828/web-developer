@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgot Password</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    form h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    form p {
+      margin-bottom: 20px;
+      color: #777;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #9c9696;
+      padding: 10px 0;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .underline {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: #673ab7;
+      transition: width 0.3s;
+    }
+
+    .input-wrapper input:focus ~ .underline {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 30px;
+      padding: 10px;
+      background: linear-gradient(to bottom right, #673ab7, rgb(146, 49, 146));
+      border: none;
+      color: white;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <form id="forgotForm">
+    <h2>Forgot Password</h2>
+    <p>Enter your email to reset your password</p>
+
+    <div class="input-wrapper">
+      <input type="email" id="forgotEmail" required />
+      <label for="forgotEmail">Email</label>
+      <div class="underline"></div>
+    </div>
+
+    <button type="submit">Reset Password</button>
+  </form>
+
+  <script>
+    document.getElementById("forgotForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("forgotEmail").value;
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Please enter a valid email.");
+        return;
+      }
+
+      alert("Password reset link has been sent to your email!");
+    });
+  </script>
+</body>
+</html>
